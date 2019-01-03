@@ -1,4 +1,4 @@
-package jzq.test.open_component.jexl;
+package jzq.test.open_component.scriptEngine;
 
 import javax.script.Compilable;
 import javax.script.CompiledScript;
