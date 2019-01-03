@@ -12,9 +12,9 @@ import javax.script.Compilable;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 
-public class JexlPerformanceTest {
+public class ScriptEnginePerformanceTest {
 	// 线程数量
-	private static int corePoolSize =  1;//2 * Runtime.getRuntime().availableProcessors();
+	private static int corePoolSize = 1;//Runtime.getRuntime().availableProcessors();
 	private static final ScriptEngineManager manager = new ScriptEngineManager();
 	private static final ScriptEngine engine = manager.getEngineByName("javascript");
 	private static final Compilable cengine = (Compilable) engine;
@@ -24,7 +24,6 @@ public class JexlPerformanceTest {
 	static AtomicInteger increment = new AtomicInteger(loopTime);
 	// 信号
 	static final Semaphore semaphore = new Semaphore(corePoolSize);
-
 	final static ThreadLocalRandom random = ThreadLocalRandom.current();
 	//自定义表达式
 	static final String express = "var result = 5.6;\r\n"
@@ -37,7 +36,7 @@ public class JexlPerformanceTest {
 			AtomicInteger increment = new AtomicInteger();
 			public Thread newThread(Runnable r) {
 				Thread t = new Thread(r);
-				t.setName("JexlTest-thread-" + increment.incrementAndGet());
+				t.setName("scriptEngine-thread-" + increment.incrementAndGet());
 				t.setDaemon(false);
 				return t;
 			}

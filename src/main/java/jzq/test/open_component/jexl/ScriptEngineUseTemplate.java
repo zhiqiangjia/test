@@ -6,17 +6,10 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 
-import org.apache.commons.jexl3.JexlBuilder;
-import org.apache.commons.jexl3.JexlContext;
-import org.apache.commons.jexl3.JexlEngine;
-import org.apache.commons.jexl3.JexlExpression;
-import org.apache.commons.jexl3.MapContext;
-import org.apache.commons.jexl3.scripting.JexlScriptEngine;
-import org.apache.commons.jexl3.scripting.JexlScriptEngineFactory;
 
 import junit.framework.TestCase;
 
-public class JexlUseTemplate extends TestCase {
+public class ScriptEngineUseTemplate extends TestCase {
 	
 	 private final ScriptEngineManager manager = new ScriptEngineManager();
 	 private final ScriptEngine engine = manager.getEngineByName("javascript");
@@ -54,8 +47,6 @@ public class JexlUseTemplate extends TestCase {
 		System.out.println(cengine.compile(expressionStr).eval());
 	}
 	
-	
-	
 	/**
 	 * 常用函数
 	 * 
@@ -66,6 +57,7 @@ public class JexlUseTemplate extends TestCase {
 		System.out.println(cengine.compile("Math.floor(5/2)").eval());
 		System.out.println(cengine.compile("Math.ceil(5/2)").eval());
 		System.out.println(cengine.compile("parseInt(5/2)").eval());
+		System.out.println(cengine.compile("32%3").eval());
 	}
 	
 	/**
