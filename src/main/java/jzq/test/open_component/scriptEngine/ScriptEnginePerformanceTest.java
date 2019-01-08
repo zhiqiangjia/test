@@ -14,12 +14,10 @@ import javax.script.ScriptEngineManager;
 
 public class ScriptEnginePerformanceTest {
 	// 线程数量
-	private static int corePoolSize = 1;//Runtime.getRuntime().availableProcessors();
-	private static final ScriptEngineManager manager = new ScriptEngineManager();
-	private static final ScriptEngine engine = manager.getEngineByName("javascript");
-	private static final Compilable cengine = (Compilable) engine;
+	private static int corePoolSize = Runtime.getRuntime().availableProcessors();
+	
 	// 循环次数
-	static final Integer loopTime = 3000 * 1000;
+	static final Integer loopTime = 20;//3000 * 1000;
 	// 共享资源
 	static AtomicInteger increment = new AtomicInteger(loopTime);
 	// 信号
@@ -56,6 +54,7 @@ public class ScriptEnginePerformanceTest {
 	}
 
 	static class Task implements Runnable {
+	
 		
 		public void run() {
 			int index = 1;
@@ -63,10 +62,13 @@ public class ScriptEnginePerformanceTest {
 				long startTime = System.currentTimeMillis();
 				semaphore.acquire();
 				while (increment.decrementAndGet() > 0) {
-					engine.put("a1", random.nextInt(100));
-					engine.put("a2", random.nextInt(100));
-					engine.put("a3", random.nextInt(100));
-					cengine.compile(express).eval();
+					final ScriptEngineManager manager = new ScriptEngineManager();
+					final ScriptEngine engine = manager.getEngineByName("javascript");
+					final Compilable cengine = (Compilable) engine;
+					engine.put("a1", 1);
+					engine.put("a2", 2);
+					engine.put("a3", 3);
+					System.out.println(Thread.currentThread().getName() +"  value:  " + cengine.compile(express).eval());
 					index ++;
 				}
 				
